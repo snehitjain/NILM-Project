@@ -1,0 +1,4 @@
+Appliance,Accuracy,Precision,Recall,F1-Score
+Fridge,0.427,0.604,0.071,0.128
+Ac,0.452,0.863,0.114,0.202
+Washing_machine,0.404,0.0,0.0,0.0

@@ -1,17 +1,18 @@
+# src/feature_engineering.py
 import pandas as pd
 import numpy as np
 
 def load_synthetic_data(n_samples=1000):
-    """Generate synthetic NILM dataset with realistic appliance contributions."""
+    """Generate synthetic NILM dataset with aggregate and appliance powers."""
     timestamps = pd.date_range(start='2025-01-01', periods=n_samples, freq='T')
 
-    # Appliances with higher ON probability
-    fridge = np.random.choice([0, 100, 150], size=n_samples, p=[0.5, 0.3, 0.2])
-    ac = np.random.choice([0, 200, 250], size=n_samples, p=[0.6, 0.25, 0.15])
-    washing_machine = np.random.choice([0, 300, 350], size=n_samples, p=[0.7, 0.2, 0.1])
+    # Appliances (random ON/OFF with some power usage)
+    fridge = np.random.choice([0, 100, 150], size=n_samples, p=[0.4, 0.3, 0.3])
+    ac = np.random.choice([0, 200, 250], size=n_samples, p=[0.4, 0.3, 0.3])
+    washing_machine = np.random.choice([0, 300, 350], size=n_samples, p=[0.4, 0.3, 0.3])
 
-    # Aggregate includes all appliances + small noise
-    aggregate = fridge + ac + washing_machine + np.random.randint(0, 20, size=n_samples)
+    # Aggregate power = sum of appliances + small noise
+    aggregate = fridge + ac + washing_machine + np.random.randint(-20, 20, size=n_samples)
 
     data = {
         'aggregate': pd.DataFrame({'power': aggregate}, index=timestamps),
@@ -35,7 +36,7 @@ def create_labels(data):
     """Create ON/OFF labels for appliances."""
     y = pd.DataFrame({
         'fridge': (data['fridge']['power'] > 50).astype(int),
-        'ac': (data['ac']['power'] > 100).astype(int),
-        'washing_machine': (data['washing_machine']['power'] > 100).astype(int)
+        'ac': (data['ac']['power'] > 50).astype(int),
+        'washing_machine': (data['washing_machine']['power'] > 50).astype(int)
     }, index=data['aggregate'].index)
     return y

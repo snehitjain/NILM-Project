@@ -21,3 +21,5 @@ plt.xlabel("Time")
 plt.title("Energy Disaggregation ON/OFF")
 plt.legend()
 plt.show()
+plt.savefig("energy_disaggregation.png")
+
