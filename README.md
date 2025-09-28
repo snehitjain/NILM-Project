@@ -1,4 +1,3 @@
----
 
 # NILM - Non-Intrusive Load Monitoring for Smart Grid Energy Disaggregation
 
