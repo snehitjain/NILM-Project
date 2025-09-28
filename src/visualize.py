@@ -1,8 +1,9 @@
 import matplotlib.pyplot as plt
-from src.feature_engineering import load_data, create_features
+from src.feature_engineering import load_synthetic_data, create_features
 import joblib
+import pandas as pd
 
-data = load_data()
+data = load_synthetic_data()
 df_feat = create_features(data)
 model = joblib.load('nilm_model.pkl')
 
