@@ -1,10 +1,6 @@
-Perfect! Here's a professional, GitHub-ready **Markdown README** with badges, TOC, and clean formatting for your NILM project:
-
 ---
 
 # NILM - Non-Intrusive Load Monitoring for Smart Grid Energy Disaggregation
-
-![Python](https://img.shields.io/badge/Python-3.7%2B-blue) ![Streamlit](https://img.shields.io/badge/Streamlit-Interactive-green) ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 This project develops a **machine learning system for Non-Intrusive Load Monitoring (NILM)**. It predicts the operational state (ON/OFF) of individual appliances from aggregate electricity consumption data.
 
