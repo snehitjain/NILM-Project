@@ -1,46 +1,156 @@
-# Non-Intrusive Load Monitoring (NILM) Project
+Perfect! Here's a professional, GitHub-ready **Markdown README** with badges, TOC, and clean formatting for your NILM project:
 
-This is a complete NILM project with Indian dataset structure for testing.
+---
 
-tep-by-Step Guide
-1. Download and Prepare the iAWE Dataset
+# NILM - Non-Intrusive Load Monitoring for Smart Grid Energy Disaggregation
 
-Access the Dataset: Visit the iAWE dataset page
- and download the electricity.tar.gz file.
+![Python](https://img.shields.io/badge/Python-3.7%2B-blue) ![Streamlit](https://img.shields.io/badge/Streamlit-Interactive-green) ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-Extract the Data: Extract the contents of electricity.tar.gz.
+This project develops a **machine learning system for Non-Intrusive Load Monitoring (NILM)**. It predicts the operational state (ON/OFF) of individual appliances from aggregate electricity consumption data.
 
-Organize the Files: Place the extracted .csv files into the data/ directory of your project.
+It includes:
 
-2. Install Required Libraries
+* Time-series data analysis and feature engineering
+* Multi-output classification for appliance ON/OFF detection
+* Model evaluation (accuracy, precision, recall, F1-score)
+* Energy consumption pattern visualization
+* Interactive Streamlit application for real-time appliance predictions
 
-Navigate to your project directory and install the necessary Python libraries:
+---
 
+## Table of Contents
+
+1. [Project Structure](#project-structure)
+2. [Dataset Preparation](#dataset-preparation)
+3. [Installation](#installation)
+4. [Training the Model](#training-the-model)
+5. [Evaluating the Model](#evaluating-the-model)
+6. [Visualizing the Results](#visualizing-the-results)
+7. [Running the Streamlit App](#running-the-streamlit-app)
+8. [Using Synthetic Data](#using-synthetic-data)
+9. [Notes](#notes)
+
+---
+
+## Project Structure
+
+```
+NILM-Project/
+│
+├─ app/                
+│   └─ app.py          # Streamlit interface
+├─ data/               
+│   └─ *.csv           # iAWE dataset or synthetic data
+├─ src/                
+│   ├─ feature_engineering.py
+│   ├─ train.py
+│   ├─ evaluate.py
+│   └─ visualize.py
+├─ nilm_model.pkl      # Trained model after training
+├─ requirements.txt
+└─ README.md
+```
+
+---
+
+## Dataset Preparation
+
+### Using iAWE Dataset
+
+1. Download `electricity.tar.gz` from [iAWE Dataset](http://i-awe.org/).
+2. Extract the CSV files.
+3. Place them in the `data/` folder:
+
+```
+data/
+├─ aggregate.csv
+├─ fridge.csv
+├─ ac.csv
+└─ washing_machine.csv
+```
+
+### Using Synthetic Data
+
+The project can generate synthetic data for testing using `load_synthetic_data()`.
+
+---
+
+## Installation
+
+Install required Python libraries:
+
+```bash
 pip install -r requirements.txt
+```
 
-3. Train the Model
+Or manually:
 
-Run the following script to train your model:
+```bash
+pip install pandas numpy scikit-learn matplotlib streamlit joblib
+```
 
-python src/train.py
+---
 
-4. Evaluate the Model
+## Training the Model
 
-After training, evaluate the model's performance:
+Train the NILM model:
 
-python src/evaluate.py
+```bash
+python -m src.train
+```
 
-5. Visualize the Results
+This will create `nilm_model.pkl` in the project folder.
 
-Generate visualizations to understand the disaggregation:
+---
 
-python src/visualize.py
+## Evaluating the Model
 
-6. Run the Streamlit Application
+Evaluate model performance metrics:
 
-Start the Streamlit app to interact with the model:
+```bash
+python -m src.evaluate
+```
 
-streamlit run app/app.py
+Metrics include **accuracy, precision, recall, and F1-score** for each appliance.
 
+---
 
-This will open a browser window displaying the appliance-level energy consumption predictions.
+## Visualizing the Results
+
+Generate plots to visualize disaggregated appliance usage:
+
+```bash
+python -m src.visualize
+```
+
+---
+
+## Running the Streamlit App
+
+Launch the interactive app:
+
+```bash
+python -m streamlit run app/app.py
+```
+
+* Select appliances to display ON/OFF states
+* Plot shows aggregate power (black) and appliance states (colored lines)
+
+---
+
+## Using Synthetic Data
+
+* By default, the app uses synthetic data.
+* To switch to iAWE dataset, modify `app.py`:
+
+```python
+from src.feature_engineering import load_data, create_features
+data = load_data()  # loads iAWE CSVs
+```
+
+* You can also increase synthetic data samples:
+
+```python
+data = load_synthetic_data(n_samples=5000)
+```
+
